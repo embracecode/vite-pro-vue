@@ -36,14 +36,6 @@ let DataTemplate = {
     //         global: false, // 缺省为 false
     //     },
     // },
-    effect: {
-        show: true,
-        period: 10, // 箭头指向速度，值越小速度越快
-        trailLength: 0.6, // 特效尾迹长度[0,1]值越大，尾迹越长重
-        symbol: 'arrow', // 箭头图标
-        symbolSize: 10, // 图标大小
-        color: "rgba(255,255,100,1)", // 流动点颜色
-    },
     lineStyle: {
         color: '#1DE9B6',
         width: 2, // 线条宽度
@@ -66,8 +58,7 @@ let DataTemplate = {
     },
     emphasis: {
         disabled: true,
-    },
-    silent: true,
+    }
 }
 
 const cityData = [
@@ -110,98 +101,111 @@ const points = [
 let map = ref()
 //注册中国地图
 echarts.registerMap('china', chinaJSON as any)
+
+const options: echarts.EChartOption = {
+    //地图组件
+    geo: {
+        map: 'china', //中国地图
+        roam: true, //鼠标缩放的效果
+        //地图的位置调试
+        left: 150,
+        top: 150,
+        right: 150,
+        zoom: 1.2,
+        bottom: 0,
+        //地图上的文字的设置
+        label: {
+            show: true, //文字显示出来
+            color: 'white',
+            fontSize: 14,
+        },
+
+        itemStyle: {
+            //每一个多边形的样式
+            color: {
+                type: 'linear',
+                x: 0.5,
+                y: 0.5,
+                r: 0.8,
+                colorStops: [
+                    {
+                        offset: 0,
+                        color: "rgba(3,27,78,1)", // 0% 处的颜色
+                    },
+                    {
+                        offset: 1,
+                        color: "rgba(58,149,253,1)", // 50% 处的颜色
+                    },
+                ],
+                global: false, // 缺省为 false
+            },
+            opacity: 0.8,
+        },
+        //地图高亮的效果
+        emphasis: {
+            itemStyle: {
+                areaColor: 'rgba(0,254,233,0.6)',
+                opacity: 0.8,
+            },
+            label: {
+                fontSize: 40,
+                color: 'yellow'
+            },
+        },
+    },
+    //布局位置
+    grid: {
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+    },
+    series: [
+        {
+            type: 'lines', //航线的系列
+            data: dataSeries,
+            //开启动画特效
+            effect: {
+                show: true,
+                period: 10, // 箭头指向速度，值越小速度越快
+                trailLength: 0.6, // 特效尾迹长度[0,1]值越大，尾迹越长重
+                symbol: 'arrow', // 箭头图标
+                symbolSize: 10, // 图标大小
+                color: "rgba(255,255,100,1)", // 流动点颜色
+            },
+            silent: true,
+            // effect: {
+            //     show: true,
+            //     period: 10, // 箭头指向速度，值越小速度越快
+            //     trailLength: 0.6, // 特效尾迹长度[0,1]值越大，尾迹越长重
+            //     symbol: 'arrow', // 箭头图标
+            //     symbolSize: 10, // 图标大小
+            //     color: "rgba(255,255,100,1)", // 流动点颜色
+            // },
+        },
+        {
+            name: 'companyPoint',
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            showEffectOn: 'render',
+            // zlevel: 2, // zlevel用于 Canvas 分层 相同的绘制在同一个canvas上
+            rippleEffect: {
+                number: 5, // 波纹数量
+                period: 4, // 动画周期 数值越大，波动越慢
+                scale: 3.5, // 动画中波纹的最大缩放比例
+                brushType: 'stroke' // 波纹的绘制方式 stroke fill
+            },
+            symbol: 'circle',
+            symbolSize: 16,
+            data: points,
+            z: 4
+        },
+    ],
+}
 onMounted(() => {
     let mychart = echarts.init(map.value)
     //设置配置项
-    mychart.setOption({
-        //地图组件
-        geo: {
-            map: 'china', //中国地图
-            roam: true, //鼠标缩放的效果
-            //地图的位置调试
-            left: 150,
-            top: 150,
-            right: 150,
-            zoom: 1.2,
-            bottom: 0,
-            //地图上的文字的设置
-            label: {
-                show: true, //文字显示出来
-                color: 'white',
-                fontSize: 14,
-            },
-
-            itemStyle: {
-                //每一个多边形的样式
-                color: {
-                    type: 'linear',
-                    x: 0.5,
-                    y: 0.5,
-                    r: 0.8,
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: "rgba(3,27,78,1)", // 0% 处的颜色
-                        },
-                        {
-                            offset: 1,
-                            color: "rgba(58,149,253,1)", // 50% 处的颜色
-                        },
-                    ],
-                    global: false, // 缺省为 false
-                },
-                opacity: 0.8,
-            },
-            //地图高亮的效果
-            emphasis: {
-                itemStyle: {
-                    areaColor: 'rgba(0,254,233,0.6)',
-                    opacity: 0.8,
-                },
-                label: {
-                    fontSize: 40,
-                    color: 'yellow'
-                },
-            },
-        },
-        //布局位置
-        grid: {
-            left: 0,
-            top: 0,
-            right: 0,
-            bottom: 0,
-        },
-        series: [
-            {
-                type: 'lines', //航线的系列
-                data: dataSeries,
-                //开启动画特效
-                effect: {
-                    show: true,
-                    symbol: 'arrow',
-                    color: 'black',
-                    symbolSize: 10,
-                },
-            },
-            {
-                name: 'companyPoint',
-                type: 'effectScatter',
-                coordinateSystem: 'geo',
-                showEffectOn: 'render',
-                // zlevel: 2, // zlevel用于 Canvas 分层 相同的绘制在同一个canvas上
-                rippleEffect: {
-                    number: 5, // 波纹数量
-                    period: 4, // 动画周期 数值越大，波动越慢
-                    scale: 3.5, // 动画中波纹的最大缩放比例
-                    brushType: 'stroke' // 波纹的绘制方式 stroke fill
-                },
-                symbol: 'circle',
-                symbolSize: 16,
-                data: points,
-                z: 4
-            },
-        ],
-    })
+    mychart.setOption(options)
 })
 </script>
 

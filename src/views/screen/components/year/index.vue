@@ -48,43 +48,45 @@ onMounted(() => {
             right: 0,
             bottom: 20,
         },
-        series: {
-            type: 'scatter',
-            data: [
-                33, 88, 21, 9, 88, 234, 113, 123, 67, 3, 88, 33, 21, 888, 332, 313,
-                123, 5, 67, 7,
-            ],
-            //标记图形设置
-            symbol: 'diamond',
-            symbolSize: 16,
-            //图文标签
-            label: {
-                show: true,
-                position: 'top',
-                color: 'cyan',
-            },
-            //散点图标记的颜色
-            itemStyle: {
-                color: {
-                    type: 'linear',
-                    x: 0,
-                    y: 0,
-                    x2: 0,
-                    y2: 1,
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: '#95d475', // 0% 处的颜色
-                        },
-                        {
-                            offset: 1,
-                            color: '#67C23A', // 100% 处的颜色
-                        },
-                    ],
-                    global: false, // 缺省为 false
+        series: [
+            {
+                type: 'scatter',
+                data: [
+                    33, 88, 21, 9, 88, 234, 113, 123, 67, 3, 88, 33, 21, 888, 332, 313,
+                    123, 5, 67, 7,
+                ],
+                //标记图形设置
+                symbol: 'diamond',
+                symbolSize: 16,
+                //图文标签
+                label: {
+                    show: true,
+                    position: 'top',
+                    color: 'cyan',
+                },
+                //散点图标记的颜色
+                itemStyle: {
+                    color: {
+                        type: 'linear',
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [
+                            {
+                                offset: 0,
+                                color: '#95d475', // 0% 处的颜色
+                            },
+                            {
+                                offset: 1,
+                                color: '#67C23A', // 100% 处的颜色
+                            },
+                        ],
+                        global: false, // 缺省为 false
+                    },
                 },
             },
-        },
+        ]
     })
 })
 </script>

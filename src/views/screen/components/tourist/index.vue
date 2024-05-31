@@ -21,6 +21,7 @@
 import 'echarts-liquidfill'
 import * as echarts from 'echarts'
 import { ref, onMounted } from 'vue'
+
 let people = ref('215908人')
 
 //水球图拓展插件
@@ -38,6 +39,12 @@ onMounted(() => {
         },
         //x|y轴组件
         xAxis: {},
+        tooltip: {
+            show: true,
+            formatter: function (params: any) {
+                return params.value * 100 + '%'
+            },
+        },
         yAxis: {},
         //系列:决定你展示什么样的图形图标
         series: {

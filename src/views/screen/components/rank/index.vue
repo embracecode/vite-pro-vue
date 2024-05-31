@@ -58,11 +58,11 @@ onMounted(() => {
                 data: [10, 20, 30, 40, 50, 60, 70],
                 //柱状图的:图形上的文本标签，
                 label: {
-                show: true,
-                //文字的位置
-                position: 'insideTop',
-                //文字颜色
-                color: 'yellowgreen',
+                    show: true,
+                    //文字的位置
+                    position: 'insideTop',
+                    //文字颜色
+                    color: 'white',
                 },
                 //是否显示背景颜色
                 showBackground: true,
@@ -120,7 +120,7 @@ onMounted(() => {
                     //文字的位置
                     position: 'insideTop',
                     //文字颜色
-                    color: 'yellowgreen',
+                    color: 'white',
                 },
                 //是否显示背景颜色
                 showBackground: true,
@@ -167,6 +167,10 @@ onMounted(() => {
         ],
         tooltip: {
             backgroundColor: 'rgba(50,50,50,0.7)',
+            textStyle: {
+                color: 'white',
+                fontSize: 16,
+            }
         },
     })
 })
