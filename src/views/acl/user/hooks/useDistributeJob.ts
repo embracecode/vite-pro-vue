@@ -6,9 +6,9 @@ import {
 } from '@/api/acl/user'
 import type {
     User,
-    AllRoleResponseData,
     AllRole,
-    SetRoleData
+    SetRoleData,
+    RoleData
 } from '@/api/acl/user/type'
 import type { CheckboxValueType } from 'element-plus';
 export const useDistributeJob = (userParams: User, getHasUser:any, pageNo: Ref) => {
@@ -17,13 +17,15 @@ export const useDistributeJob = (userParams: User, getHasUser:any, pageNo: Ref) 
 
     let allRole = ref<AllRole>([])
 
-    let userRole = ref<AllRole>([])
+    let userRole = ref<any>([])
 
 
     const setRole = async (row: User) => {
+        
         distributeJob.value = true
         Object.assign(userParams, row)
-        let res: AllRoleResponseData = await reqAllRole(userParams.id as number)
+        let res = await reqAllRole(userParams.id as number)
+
         if (res.code === 200) {
             allRole.value = res.data.allRolesList
             userRole.value = res.data.assignRoles
@@ -39,7 +41,6 @@ export const useDistributeJob = (userParams: User, getHasUser:any, pageNo: Ref) 
         userRole.value = val ? allRole.value : []
         isIndeterminate.value = false
     }
-
     const handleCheckedUsersChange = (value: CheckboxValueType[]) => {
         console.log(value, 'value');
         const checkedCount = value.length
@@ -51,7 +52,7 @@ export const useDistributeJob = (userParams: User, getHasUser:any, pageNo: Ref) 
     const confirmClick = async () => {
         let data: SetRoleData = {
             userId: userParams.id as number,
-            roleIdList: userRole.value.map((item) => {
+            roleIdList: userRole.value.map((item: RoleData) => {
                 return item.id as number
             }),
         }

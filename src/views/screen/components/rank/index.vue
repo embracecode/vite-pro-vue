@@ -14,11 +14,22 @@ import * as echarts from 'echarts'
 import { ref, onMounted } from 'vue'
 //获取DOM节点
 let charts = ref()
+
+const colorArr: string[] = [
+    '#409eff',
+    '#67C23A',
+    '#E6A23C',
+    '#F56C6C',
+    '#909399',
+    'purple',
+    'cyan',
+]
 //组件挂载完毕
 onMounted(() => {
     //一个容器可以同时展示多种类型的图形图标
     let mychart = echarts.init(charts.value)
     //设置配置项
+    // @ts-ignore
     mychart.setOption({
         //标题组件
         title: {
@@ -68,42 +79,30 @@ onMounted(() => {
                 showBackground: true,
                 backgroundStyle: {
                 //底部背景的颜色
-                color: {
-                    type: 'linear',
-                    x: 0,
-                    y: 0,
-                    x2: 0,
-                    y2: 1,
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: '#a0cfff', // 0% 处的颜色
-                        },
-                        {
-                            offset: 1,
-                            color: '#c6e2ff', // 100% 处的颜色
-                        },
-                    ],
-                    global: false, // 缺省为 false
-                },
+                    color: {
+                        type: 'linear',
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [
+                            {
+                                offset: 0,
+                                color: '#a0cfff', // 0% 处的颜色
+                            },
+                            {
+                                offset: 1,
+                                color: '#c6e2ff', // 100% 处的颜色
+                            },
+                        ],
+                        global: false, // 缺省为 false
+                    },
                 },
                 //柱条的样式
                 itemStyle: {
-                borderRadius: [10, 10, 0, 0],
-                //柱条颜色
-                color: function (data: any) {
-                    //给每一个柱条这是背景颜色
-                    let arr = [
-                        '#409eff',
-                        '#67C23A',
-                        '#E6A23C',
-                        '#F56C6C',
-                        '#909399',
-                        'purple',
-                        'cyan',
-                    ]
-                    return arr[data.dataIndex]
-                },
+                    borderRadius: [10, 10, 0, 0],
+                    //柱条颜色
+                    color: (data: any): string => colorArr[data.dataIndex],
                 },
             },
             {
@@ -144,24 +143,12 @@ onMounted(() => {
                         ],
                         global: false, // 缺省为 false
                     },
-                    },
-                    //柱条的样式
-                    itemStyle: {
+                },
+                //柱条的样式
+                itemStyle: {
                     borderRadius: [10, 10, 0, 0],
                     //柱条颜色
-                    color: function (data: any) {
-                        //给每一个柱条这是背景颜色
-                        let arr = [
-                            '#409eff',
-                            '#67C23A',
-                            '#E6A23C',
-                            '#F56C6C',
-                            '#909399',
-                            'purple',
-                            'cyan',
-                        ]
-                        return arr[data.dataIndex]
-                    },
+                    color: (data: any): string => colorArr[data.dataIndex],
                 },
             },
         ],

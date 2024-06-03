@@ -163,7 +163,7 @@ const options: echarts.EChartOption = {
     series: [
         {
             type: 'lines', //航线的系列
-            data: dataSeries,
+            data: dataSeries as any[],
             //开启动画特效
             effect: {
                 show: true,
@@ -190,6 +190,7 @@ const options: echarts.EChartOption = {
             showEffectOn: 'render',
             // zlevel: 2, // zlevel用于 Canvas 分层 相同的绘制在同一个canvas上
             rippleEffect: {
+                // @ts-ignore
                 number: 5, // 波纹数量
                 period: 4, // 动画周期 数值越大，波动越慢
                 scale: 3.5, // 动画中波纹的最大缩放比例

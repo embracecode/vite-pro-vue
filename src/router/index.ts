@@ -28,7 +28,7 @@ let userStore = useUserStore(pinia)
 // 进度条配置
 nprogress.configure({ showSpinner: false })
 // 全局前置守卫
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _from, next) => {
     document.title = to.meta.title + `- ${setting.title}`
     nprogress.start()
     let token = userStore.token
@@ -61,7 +61,7 @@ router.beforeEach(async (to, from, next) => {
     }
 })
 // 全局后置守卫
-router.afterEach((route) => {
+router.afterEach((_route) => {
     nprogress.done()
 })
 
