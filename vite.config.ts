@@ -12,6 +12,7 @@ import { viteMockServe } from 'vite-plugin-mock'
 export default defineConfig(({ command, mode }) => {
     let env = loadEnv(mode, process.cwd())
     return {
+        base: './',
         plugins: [
             vue(),
             AutoImport({
