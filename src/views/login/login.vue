@@ -137,7 +137,9 @@ const rules = {
 const login = async () => {
     await loginForms.value.validate()
     loading.value = true
-    try {await useStore.userLogin(loginForm)
+    try {
+        await useStore.userLogin(loginForm)
+        return
         let redirect = $route.query.redirect as string
         $router.push({ path: redirect || '/' })
         ElNotification({
