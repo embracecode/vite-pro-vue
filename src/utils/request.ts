@@ -2,10 +2,15 @@
 import axios from 'axios'
 import { ElMessage  } from 'element-plus'
 import useUserStore from '@/store/modules/user'
+
+
+
 const request = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_URL, // api的base_url
+  baseURL: import.meta.env.VITE_USER_NODE_ENV === "development" ? import.meta.env.VITE_APP_BASE_URL : import.meta.env.VITE_APP_SERVER_URL, // api的base_url
   timeout: 5000 // request timeout
 })
+
+console.log(import.meta.env, 'import.meta.env')
 
 request.interceptors.request.use(
     config => {
