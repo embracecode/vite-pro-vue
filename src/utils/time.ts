@@ -18,7 +18,7 @@ const _formtterNormalize = (formtter: any) => {
         return  formtter
     }
     if (typeof formtter !== 'string') {
-        return new  TypeError('formtter must be a function or string')
+        return new TypeError('formtter must be a function or string')
     }
     if (formtter === 'date') {
         formtter = 'yyyy-MM-dd'
