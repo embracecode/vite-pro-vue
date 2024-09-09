@@ -28,7 +28,8 @@ import {
     Rank,
     Edit,
     Plus,
-    Delete
+    Delete,
+    ChromeFilled
 } from '@element-plus/icons-vue'
  
 const icons: componentType= {
@@ -51,7 +52,8 @@ const icons: componentType= {
     Rank,
     Edit,
     Plus,
-    Delete
+    Delete,
+    ChromeFilled
 }
 console.log(icons);
 

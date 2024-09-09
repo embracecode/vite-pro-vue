@@ -4,7 +4,7 @@
 
 import type { RouteRecordRaw } from 'vue-router'
 
-
+import { VueSubRouter } from './vuesub'
 
 export const constRoutes: RouteRecordRaw[] = [
     {
@@ -54,7 +54,8 @@ export const constRoutes: RouteRecordRaw[] = [
             title: '404页',
             hidden: true // 代表该路由需要隐藏
         }
-    }
+    },
+    ...VueSubRouter
 ]
 // 匹配不到的路由跳转404 这个路由只能动态加入 不能直接写在常量路由里 不然会导致 刷新页面匹配不到路由
 export const anyRouter: RouteRecordRaw[] = [{
